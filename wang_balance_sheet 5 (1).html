@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr Junxiong Wang Investment Balance Sheet | Amer Zulfiqar Office</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a2f4a;
+            --secondary: #2d4a6f;
+            --accent: #c9a961;
+            --accent-light: #e8d5a8;
+            --success: #2e7d5a;
+            --warning: #d4a012;
+            --danger: #b54a4a;
+            --light: #f8f6f1;
+            --lighter: #fdfcfa;
+            --text: #1a1a1a;
+            --text-muted: #666;
+            --border: #e0ddd5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        /* Password Protection */
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .password-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .password-box h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .password-box p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+
+        .password-box input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .password-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .password-box button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .password-box button:hover {
+            background: var(--secondary);
+        }
+
+        .password-error {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .main-content {
+            display: none;
+        }
+
+        .main-content.unlocked {
+            display: block;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--light);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            padding-top: 70px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: var(--primary);
+            padding: 0 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand { color: white; font-weight: 600; font-size: 1.1rem; }
+
+        .navbar-nav {
+            display: flex;
+            gap: 5px;
+            list-style: none;
+        }
+
+        .navbar-nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .navbar-nav a:hover { background: rgba(255,255,255,0.1); color: white; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+
+        .header h1 { font-size: 2rem; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+        .header .subtitle { font-size: 1rem; color: var(--text-muted); }
+        .header .date { font-size: 0.9rem; color: var(--accent); margin-top: 8px; font-weight: 500; }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title { font-size: 1.2rem; font-weight: 600; color: var(--primary); }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 768px) { .summary-grid { grid-template-columns: 1fr; } }
+
+        .summary-box {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .summary-box.accent { background: var(--accent); color: var(--primary); }
+        .summary-box.success { background: var(--success); }
+
+        .summary-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-value { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.6rem; font-weight: 600; }
+
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        th {
+            background: var(--light);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+        td { font-size: 0.95rem; }
+
+        .amount { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; color: var(--primary); }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-active { background: var(--success); color: white; }
+        .badge-inactive { background: var(--text-muted); color: white; }
+        .badge-pending { background: var(--warning); color: white; }
+
+        .status-transferred { color: var(--success); font-weight: 600; }
+
+        .roi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (max-width: 600px) { .roi-grid { grid-template-columns: 1fr; } }
+
+        .roi-card { background: var(--light); padding: 20px; border-radius: 10px; text-align: center; }
+        .roi-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; }
+        .roi-value { font-family: 'IBM Plex Sans', sans-serif; font-size: 2.2rem; font-weight: 600; color: var(--success); }
+        .roi-detail { font-size: 0.85rem; color: var(--text-muted); margin-top: 5px; }
+
+        .collapsible { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 15px; }
+
+        .collapsible-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .collapsible-toggle:hover { color: var(--primary); }
+        .collapsible-toggle svg { transition: transform 0.3s ease; }
+        .collapsible-toggle.open svg { transform: rotate(180deg); }
+        .collapsible-content { display: none; margin-top: 15px; }
+        .collapsible-content.open { display: block; }
+
+        .flow-chart {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            padding: 25px 10px;
+            background: var(--light);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .flow-step { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+        .flow-number {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .flow-step.active .flow-number { background: var(--success); }
+        .flow-label { font-size: 0.8rem; font-weight: 600; color: var(--primary); max-width: 100px; }
+        .flow-amount { font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85rem; color: var(--text-muted); margin-top: 3px; }
+        .flow-arrow { color: var(--accent); font-size: 1.5rem; margin: 0 15px; margin-bottom: 20px; }
+
+        @media (max-width: 600px) {
+            .flow-chart { flex-direction: column; gap: 10px; }
+            .flow-arrow { transform: rotate(90deg); margin: 5px 0; }
+        }
+
+        .projection-card { background: var(--light); border-radius: 10px; padding: 20px; }
+        .projection-scenario { margin-bottom: 15px; }
+        .projection-scenario label { display: block; font-weight: 500; margin-bottom: 8px; color: var(--primary); }
+        .scenario-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .scenario-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .scenario-btn:hover { border-color: var(--accent); }
+        .scenario-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .projection-result {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) { .projection-result { grid-template-columns: 1fr; } }
+
+        .result-item label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .result-item .value { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.4rem; font-weight: 600; color: var(--primary); }
+        .result-item .value.highlight { color: var(--success); }
+
+        .obligation-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .obligation-row:last-child { border-bottom: none; }
+
+        .obligation-row.total {
+            background: var(--primary);
+            color: white;
+            margin: 15px -25px -25px -25px;
+            padding: 15px 25px;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .obligation-label { display: flex; align-items: center; gap: 10px; }
+
+        .schedule-status {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .schedule-status.behind { background: rgba(181, 74, 74, 0.15); color: var(--danger); }
+        .schedule-status.pending { background: rgba(212, 160, 18, 0.15); color: var(--warning); }
+        .schedule-status.complete { background: rgba(46, 125, 90, 0.15); color: var(--success); }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-toggle { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            .navbar-nav {
+                display: none;
+                position: absolute;
+                top: 60px; left: 0; right: 0;
+                background: var(--primary);
+                flex-direction: column;
+                padding: 10px;
+            }
+            .navbar-nav.open { display: flex; }
+        }
+
+        @media print {
+            body { padding-top: 0; }
+            .navbar { display: none; }
+            .card { box-shadow: none; border: 1px solid #ddd; }
+        }
+
+        .step-section { margin-bottom: 20px; }
+        .step-header {
+            padding: 12px 15px;
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+        .step-header.step1 { background: var(--primary); color: white; }
+        .step-header.step2 { background: var(--accent); color: var(--primary); }
+        .step-header.step3 { background: var(--secondary); color: white; }
+
+        .step-body {
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .step-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 12px 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .step-row:first-child { border-top: none; }
+        .step-row.header {
+            background: var(--light);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .step-row.highlight { background: rgba(46, 125, 90, 0.08); }
+        .step-row.current { background: rgba(201, 169, 97, 0.08); }
+
+        .step-footer {
+            padding: 10px 15px;
+            border-top: 1px solid var(--border);
+            background: var(--light);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Protection Overlay -->
+    <div class="password-overlay" id="passwordOverlay">
+        <div class="password-box">
+            <h2>Protected Document</h2>
+            <p>Please enter the access code to view this investment statement.</p>
+            <input type="password" id="passwordInput" placeholder="Enter access code" onkeypress="if(event.key === 'Enter') checkPassword()">
+            <button onclick="checkPassword()">Access Document</button>
+            <p class="password-error" id="passwordError">Incorrect access code. Please try again.</p>
+        </div>
+    </div>
+
+    <!-- Main Content (hidden until password entered) -->
+    <div class="main-content" id="mainContent">
+    <nav class="navbar">
+        <div class="navbar-brand">Mr Junxiong Wang | Investment Statement</div>
+        <button class="nav-toggle" onclick="document.querySelector('.navbar-nav').classList.toggle('open')">☰</button>
+        <ul class="navbar-nav">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#roi">ROI</a></li>
+            <li><a href="#projection">Projection</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#obligations">Obligations</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header class="header">
+            <h1>Investment Balance Sheet</h1>
+            <p class="subtitle">Client: Mr Junxiong Wang | Prepared by Amer Zulfiqar Office</p>
+            <p class="date">Statement Date: 31 December 2025</p>
+        </header>
+
+        <div class="summary-grid">
+            <div class="summary-box">
+                <div class="summary-label">Total Invested</div>
+                <div class="summary-value">£5.3M</div>
+            </div>
+            <div class="summary-box accent">
+                <div class="summary-label">Profit Generated</div>
+                <div class="summary-value">£1.57M</div>
+            </div>
+            <div class="summary-box success">
+                <div class="summary-label">Paid to Client</div>
+                <div class="summary-value">£889K</div>
+            </div>
+        </div>
+
+        <!-- Investment Overview -->
+        <section id="overview" class="card">
+            <div class="card-header">
+                <h2 class="card-title">Investment Overview</h2>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Principal</th>
+                        <th>Status</th>
+                        <th>Profit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>WNG-001</strong></td>
+                        <td class="amount">£1,000,000</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                        <td class="amount">£1,571,390</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WNG-002</strong></td>
+                        <td class="amount">£1,800,000</td>
+                        <td><span class="badge badge-inactive">Not Executed</span></td>
+                        <td class="amount">£0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WNG-003</strong></td>
+                        <td class="amount">£2,500,000</td>
+                        <td><span class="badge badge-inactive">Not Executed</span></td>
+                        <td class="amount">£0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ROI Section -->
+        <section id="roi" class="card">
+            <div class="card-header">
+                <h2 class="card-title">Return on Investment</h2>
+            </div>
+            
+            <div class="roi-grid">
+                <div class="roi-card">
+                    <div class="roi-label">WNG-001 ROI</div>
+                    <div class="roi-value">157.1%</div>
+                    <div class="roi-detail">~39% annualized over 4 years</div>
+                </div>
+                <div class="roi-card">
+                    <div class="roi-label">Total Portfolio ROI</div>
+                    <div class="roi-value">29.6%</div>
+                    <div class="roi-detail">~7.4% annualized (WNG-002/003 = 0%)</div>
+                </div>
+            </div>
+
+            <div class="collapsible">
+                <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                    View Profit Details
+                </div>
+                <div class="collapsible-content">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: var(--success); color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 0.75rem; text-transform: uppercase; opacity: 0.9;">Transferred</div>
+                            <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 1.4rem; font-weight: 600;">£889,305</div>
+                        </div>
+                        <div style="background: var(--warning); color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 0.75rem; text-transform: uppercase; opacity: 0.9;">Outstanding</div>
+                            <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 1.4rem; font-weight: 600;">£682,084</div>
+                        </div>
+                    </div>
+
+                    <div class="collapsible" style="border-top: none; padding-top: 0;">
+                        <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                            View Payment History (Transferred)
+                        </div>
+                        <div class="collapsible-content">
+                            <table style="font-size: 0.9rem;">
+                                <thead><tr><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Nov 2021</td><td class="amount">£57,837</td><td class="status-transferred">✓ Paid</td></tr>
+                                    <tr><td>Dec 2021</td><td class="amount">£87,776</td><td class="status-transferred">✓ Paid</td></tr>
+                                    <tr><td>Jan 2022</td><td class="amount">£116,548</td><td class="status-transferred">✓ Paid</td></tr>
+                                    <tr><td>Feb 2022</td><td class="amount">£123,237</td><td class="status-transferred">✓ Paid</td></tr>
+                                    <tr><td>Mar 2022</td><td class="amount">£136,001</td><td class="status-transferred">✓ Paid</td></tr>
+                                    <tr><td>Apr 2022</td><td class="amount">£74,414</td><td class="status-transferred">✓ Paid</td></tr>
+                                    <tr><td>May 2022</td><td class="amount">£147,915</td><td class="status-transferred">✓ Paid</td></tr>
+                                    <tr><td>Jun 2022</td><td class="amount">£38,012</td><td class="status-transferred">✓ Paid</td></tr>
+                                    <tr><td>Jul 2022</td><td class="amount">£64,591</td><td class="status-transferred">✓ Paid</td></tr>
+                                    <tr><td>Aug 2022</td><td class="amount">£42,976</td><td class="status-transferred">✓ Paid</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="collapsible" style="border-top: none; padding-top: 10px;">
+                        <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                            View Outstanding Amounts (40 months)
+                        </div>
+                        <div class="collapsible-content" style="max-height: 300px; overflow-y: auto;">
+                            <table style="font-size: 0.85rem;">
+                                <thead style="position: sticky; top: 0;"><tr><th>Date</th><th>Amount</th></tr></thead>
+                                <tbody id="outstanding-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projection -->
+        <section id="projection" class="card">
+            <div class="card-header">
+                <h2 class="card-title">Profit Projection & Repayment Scenarios</h2>
+            </div>
+            
+            <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9rem;">
+                Profit continues monthly (approx. 1% of capital) until WNG-001 capital is fully repaid. Select a scenario to see how faster repayment reduces total profit owed.
+            </p>
+
+            <div class="projection-card">
+                <div class="projection-scenario">
+                    <label>Select Repayment Scenario:</label>
+                    <div class="scenario-buttons">
+                        <button class="scenario-btn active" onclick="setScenario('standard', this)">Standard Schedule</button>
+                        <button class="scenario-btn" onclick="setScenario('accelerated', this)">Accelerated</button>
+                        <button class="scenario-btn" onclick="setScenario('aggressive', this)">Aggressive</button>
+                    </div>
+                </div>
+
+                <div id="scenario-description" style="margin-top: 15px; padding: 12px; background: white; border-radius: 8px; font-size: 0.9rem; color: var(--text-muted);">
+                </div>
+
+                <div class="projection-result" id="projection-result"></div>
+            </div>
+        </section>
+
+        <!-- Capital Repayment Schedule (Dynamic) -->
+        <section id="schedule" class="card">
+            <div class="card-header">
+                <h2 class="card-title">Capital Repayment Schedule</h2>
+            </div>
+
+            <!-- Flow Chart -->
+            <div class="flow-chart">
+                <div class="flow-step active">
+                    <div class="flow-number">1</div>
+                    <div class="flow-label">WNG-001 Capital</div>
+                    <div class="flow-amount">£1,000,000</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-number">2</div>
+                    <div class="flow-label">WNG-001 Profit</div>
+                    <div class="flow-amount">~£742,084</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-number">3</div>
+                    <div class="flow-label">WNG-002 & 003</div>
+                    <div class="flow-amount">£4,300,000</div>
+                </div>
+            </div>
+
+            <!-- Overdue Notice -->
+            <div style="background: rgba(181, 74, 74, 0.1); border-left: 3px solid var(--danger); padding: 12px 15px; border-radius: 0 8px 8px 0; margin-bottom: 20px; font-size: 0.9rem;">
+                <strong style="color: var(--danger);">Note:</strong> Q3-Q4 2025 payment of £100,000 was not made. This is included in the Q1 2026 payment.
+            </div>
+
+            <!-- Step 1: WNG-001 Capital -->
+            <div style="margin-bottom: 20px;">
+                <div style="background: var(--primary); color: white; padding: 12px 15px; border-radius: 8px 8px 0 0; font-weight: 600; display: flex; justify-content: space-between;">
+                    <span>Step 1: WNG-001 Capital</span>
+                    <span>£1,000,000</span>
+                </div>
+                <div style="border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 10px 15px; background: var(--light); font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+                        <div>Period</div>
+                        <div>Payment</div>
+                        <div>Remaining</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 15px; border-top: 1px solid var(--border); background: rgba(201, 169, 97, 0.08);">
+                        <div>
+                            <strong>Q1 2026</strong> <span class="schedule-status pending" style="margin-left: 5px;">Scheduled</span><br>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">£100K catch-up + £100K scheduled</span>
+                        </div>
+                        <div class="amount">£200,000</div>
+                        <div style="color: var(--text-muted);">£800,000</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 15px; border-top: 1px solid var(--border);">
+                        <div><strong>Q2 2026</strong></div>
+                        <div class="amount">£500,000</div>
+                        <div style="color: var(--text-muted);">£300,000</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 15px; border-top: 1px solid var(--border); background: rgba(46, 125, 90, 0.08);">
+                        <div><strong>Q3 2026</strong></div>
+                        <div class="amount">£300,000</div>
+                        <div style="color: var(--success); font-weight: 600;">£0 ✓ Complete</div>
+                    </div>
+                    <div style="padding: 10px 15px; border-top: 1px solid var(--border); background: var(--light); font-size: 0.85rem; color: var(--text-muted);">
+                        <strong>Subtotal:</strong> £1,000,000
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: WNG-001 Profit -->
+            <div style="margin-bottom: 20px;">
+                <div style="background: var(--accent); color: var(--primary); padding: 12px 15px; border-radius: 8px 8px 0 0; font-weight: 600; display: flex; justify-content: space-between;">
+                    <span>Step 2: WNG-001 Profit</span>
+                    <span>~£742,084</span>
+                </div>
+                <div style="border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 10px 15px; background: var(--light); font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+                        <div>Period</div>
+                        <div>Payment</div>
+                        <div>Remaining</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 15px; border-top: 1px solid var(--border); background: rgba(46, 125, 90, 0.08);">
+                        <div>
+                            <strong>Q3 2026</strong><br>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Paid after capital complete</span>
+                        </div>
+                        <div class="amount">~£742,084</div>
+                        <div style="color: var(--success); font-weight: 600;">£0 ✓ Complete</div>
+                    </div>
+                    <div style="padding: 10px 15px; border-top: 1px solid var(--border); background: var(--light); font-size: 0.85rem; color: var(--text-muted);">
+                        <strong>Breakdown:</strong> £682,084 outstanding + ~£60,000 WNG-001 projected profit accrual
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: WNG-002 & WNG-003 Capital -->
+            <div style="margin-bottom: 20px;">
+                <div style="background: var(--secondary); color: white; padding: 12px 15px; border-radius: 8px 8px 0 0; font-weight: 600; display: flex; justify-content: space-between;">
+                    <span>Step 3: WNG-002 & WNG-003 Capital</span>
+                    <span>£4,300,000</span>
+                </div>
+                <div style="border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 10px 15px; background: var(--light); font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+                        <div>Period</div>
+                        <div>Payment</div>
+                        <div>Remaining</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 15px; border-top: 1px solid var(--border);">
+                        <div>
+                            <strong>Q3 2026</strong><br>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Remainder of Q3 payment</span>
+                        </div>
+                        <div class="amount">~£258,000</div>
+                        <div style="color: var(--text-muted);">£4,042,000</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 15px; border-top: 1px solid var(--border);">
+                        <div><strong>Q4 2026</strong></div>
+                        <div class="amount">£3,300,000</div>
+                        <div style="color: var(--text-muted);">£742,000</div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 15px; border-top: 1px solid var(--border); background: rgba(46, 125, 90, 0.08);">
+                        <div><strong>Q1 2027</strong></div>
+                        <div class="amount">~£742,000</div>
+                        <div style="color: var(--success); font-weight: 600;">£0 ✓ Complete</div>
+                    </div>
+                    <div style="padding: 10px 15px; border-top: 1px solid var(--border); background: var(--light); font-size: 0.85rem; color: var(--text-muted);">
+                        <strong>Subtotal:</strong> £4,300,000
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div style="background: var(--primary); color: white; padding: 15px 20px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <div><strong>Total Scheduled Repayments</strong></div>
+                <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 1.3rem; font-weight: 600;">~£6,042,084</div>
+            </div>
+
+            <div style="margin-top: 15px; padding: 12px 15px; background: var(--light); border-radius: 8px; font-size: 0.85rem; color: var(--text-muted);">
+                <strong>Please note:</strong> Schedules may be adjusted in line with the repayment scenario. Profit will continue to accrue until the invested capital has been fully returned. All figures remain indicative and subject to final reconciliation, timing, and the agreed repayment pathway.
+            </div>
+        </section>
+
+        <!-- Total Obligations -->
+        <section id="obligations" class="card">
+            <div class="card-header">
+                <h2 class="card-title">Total Obligations Summary</h2>
+            </div>
+
+            <div style="background: var(--success); color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div style="font-size: 0.75rem; text-transform: uppercase; opacity: 0.9;">Already Paid to Client</div>
+                    <div style="font-size: 0.85rem; margin-top: 3px;">WNG-001 Profit (Transferred)</div>
+                </div>
+                <div style="font-family: 'IBM Plex Sans', sans-serif; font-size: 1.4rem; font-weight: 600;">£889,305</div>
+            </div>
+
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">Remaining Obligations</div>
+
+            <div class="obligation-row">
+                <div class="obligation-label"><span>WNG-001 Capital</span></div>
+                <div class="amount">£1,000,000</div>
+            </div>
+            <div class="obligation-row">
+                <div class="obligation-label"><span>WNG-001 Profit (Outstanding)</span></div>
+                <div class="amount">£682,084</div>
+            </div>
+            <div class="obligation-row">
+                <div class="obligation-label">
+                    <span>WNG-001 Profit (Est. Future)</span>
+                    <span class="badge badge-active" style="font-size: 0.65rem;">Ongoing</span>
+                </div>
+                <div class="amount" id="future-profit-display">~£60,000</div>
+            </div>
+            <div class="obligation-row">
+                <div class="obligation-label">
+                    <span>WNG-002 Capital</span>
+                    <span class="badge badge-pending" style="font-size: 0.65rem;">Goodwill</span>
+                </div>
+                <div class="amount">£1,800,000</div>
+            </div>
+            <div class="obligation-row">
+                <div class="obligation-label">
+                    <span>WNG-003 Capital</span>
+                    <span class="badge badge-pending" style="font-size: 0.65rem;">Goodwill</span>
+                </div>
+                <div class="amount">£2,500,000</div>
+            </div>
+            <div class="obligation-row" style="background: var(--light); margin: 15px -25px; padding: 12px 25px;">
+                <div><strong>Remaining to Pay</strong></div>
+                <div class="amount" id="total-remaining"><strong>~£6,042,084</strong></div>
+            </div>
+            <div class="obligation-row total">
+                <div><strong>TOTAL (Paid + Remaining)</strong></div>
+                <div class="amount" id="total-obligations" style="color: white; font-size: 1.2rem;"><strong>~£6,931,389</strong></div>
+            </div>
+        </section>
+
+        <!-- Disclaimer -->
+        <section class="card" style="background: var(--light); border: 1px solid var(--border);">
+            <div class="card-header" style="border-bottom-color: var(--border);">
+                <h2 class="card-title">Important Disclaimer</h2>
+            </div>
+            
+            <div style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.8;">
+                <p style="margin-bottom: 15px;">
+                    <strong>Capital Return:</strong> The total trade capital of £5,300,000 will be repaid to the client.
+                </p>
+                
+                <p style="margin-bottom: 15px;">
+                    <strong>WNG-001 (£1,000,000):</strong> This investment is actively in trade. A portion of the profit has already been transferred to the client (£889,305). The remaining outstanding profit (£682,084) will be returned in due course. Profit will continue to accrue at approximately 1% of remaining capital per month until such time as the capital is fully repaid, at which point profit generation will cease.
+                </p>
+                
+                <p style="margin-bottom: 15px;">
+                    <strong>WNG-002 & WNG-003 (£4,300,000):</strong> These trades did not proceed. The original capital will be returned as a gesture of goodwill.
+                </p>
+                
+                <p style="margin-bottom: 15px; padding: 15px; background: white; border-radius: 8px; border-left: 3px solid var(--accent);">
+                    <strong>Additional Goodwill:</strong> There may be potential for an additional amount to be paid on top of the original WNG-002 & WNG-003 capital, again as a gesture of goodwill. This remains subject to further discussion between the parties.
+                </p>
+                
+                <p style="font-size: 0.85rem; font-style: italic;">
+                    This statement is provided for informational purposes only and does not constitute a legally binding agreement. All figures are subject to final reconciliation and verification.
+                </p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p><strong>Amer Zulfiqar Office</strong></p>
+            <p style="margin-top: 8px;">Generated: 31 December 2025</p>
+        </footer>
+    </div>
+    </div><!-- End main-content -->
+
+    <script>
+        // Password Protection
+        const ACCESS_CODE = 'WNG@AZO!2026';
+        
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            const error = document.getElementById('passwordError');
+            
+            if (input === ACCESS_CODE) {
+                document.getElementById('passwordOverlay').style.display = 'none';
+                document.getElementById('mainContent').classList.add('unlocked');
+            } else {
+                error.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+        
+        // Focus on password input on load
+        document.getElementById('passwordInput').focus();
+
+        const outstandingPayments = [
+            {date: 'Sep 2022', amount: 41206}, {date: 'Oct 2022', amount: 39912},
+            {date: 'Nov 2022', amount: 40161}, {date: 'Dec 2022', amount: 32565},
+            {date: 'Jan 2023', amount: 30514}, {date: 'Feb 2023', amount: 33812},
+            {date: 'Mar 2023', amount: 32317}, {date: 'Apr 2023', amount: 19830},
+            {date: 'May 2023', amount: 19656}, {date: 'Jun 2023', amount: 22887},
+            {date: 'Jul 2023', amount: 18769}, {date: 'Aug 2023', amount: 20269},
+            {date: 'Sep 2023', amount: 18361}, {date: 'Oct 2023', amount: 16325},
+            {date: 'Nov 2023', amount: 16063}, {date: 'Dec 2023', amount: 8220},
+            {date: 'Jan 2024', amount: 16525}, {date: 'Feb 2024', amount: 12621},
+            {date: 'Mar 2024', amount: 5077}, {date: 'Apr 2024', amount: 13953},
+            {date: 'May 2024', amount: 13866}, {date: 'Jun 2024', amount: 11991},
+            {date: 'Jul 2024', amount: 13143}, {date: 'Aug 2024', amount: 11511},
+            {date: 'Sep 2024', amount: 11585}, {date: 'Oct 2024', amount: 12815},
+            {date: 'Nov 2024', amount: 11585}, {date: 'Dec 2024', amount: 12200},
+            {date: 'Jan 2025', amount: 10582}, {date: 'Feb 2025', amount: 10003},
+            {date: 'Mar 2025', amount: 10504}, {date: 'Apr 2025', amount: 11388},
+            {date: 'May 2025', amount: 11025}, {date: 'Jun 2025', amount: 10455},
+            {date: 'Jul 2025', amount: 11366}, {date: 'Aug 2025', amount: 10077},
+            {date: 'Sep 2025', amount: 10415}, {date: 'Oct 2025', amount: 10772},
+            {date: 'Nov 2025', amount: 8874}, {date: 'Dec 2025', amount: 8895}
+        ];
+
+        document.getElementById('outstanding-tbody').innerHTML = outstandingPayments.map(p => 
+            `<tr><td>${p.date}</td><td class="amount">£${p.amount.toLocaleString()}</td></tr>`
+        ).join('');
+
+        function toggleCollapsible(el) {
+            el.classList.toggle('open');
+            el.nextElementSibling.classList.toggle('open');
+        }
+
+        function formatCurrency(num) {
+            return '£' + Math.round(num).toLocaleString();
+        }
+
+        const scenarios = {
+            standard: {
+                name: 'Standard',
+                description: 'Follow the original payment schedule. WNG-001 capital completes in Q3 2026.',
+                q1: 200000,
+                q2: 500000
+            },
+            accelerated: {
+                name: 'Accelerated',
+                description: 'Increase Q1 2026 payment to £400K. WNG-001 capital completes earlier, reducing future profit.',
+                q1: 400000,
+                q2: 500000
+            },
+            aggressive: {
+                name: 'Aggressive',
+                description: 'Pay £500K in Q1 and Q2 2026. WNG-001 capital completes by Q2 2026, significantly reducing profit owed.',
+                q1: 500000,
+                q2: 500000
+            }
+        };
+
+        function setScenario(type, btn) {
+            document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            calculateProjection(scenarios[type]);
+        }
+
+        function calculateProjection(scenario) {
+            const baseProfit = 10000; // Approx 1% of capital per month
+            const initialCapital = 1000000;
+            const outstandingProfit = 682084;
+            const wng23Capital = 4300000;
+
+            let capital = initialCapital;
+            let totalFutureProfit = 0;
+
+            // Update scenario description
+            document.getElementById('scenario-description').innerHTML = `<strong>${scenario.name}:</strong> ${scenario.description}`;
+
+            // Q1 2026 - profit accrues on full capital
+            const q1Profit = (capital / initialCapital) * baseProfit * 3;
+            totalFutureProfit += q1Profit;
+            capital = Math.max(0, capital - scenario.q1);
+
+            // Q2 2026 - profit accrues on remaining capital
+            if (capital > 0) {
+                const q2Profit = (capital / initialCapital) * baseProfit * 3;
+                totalFutureProfit += q2Profit;
+                capital = Math.max(0, capital - scenario.q2);
+            }
+
+            // Q3 2026 - if any capital remains
+            if (capital > 0) {
+                const q3Profit = (capital / initialCapital) * baseProfit * 2;
+                totalFutureProfit += q3Profit;
+            }
+
+            // Calculate totals
+            const totalProfitOwed = outstandingProfit + totalFutureProfit;
+            const totalObligations = initialCapital + totalProfitOwed + wng23Capital;
+
+            // Update projection result
+            document.getElementById('projection-result').innerHTML = `
+                <div class="result-item">
+                    <label>Est. Future Profit</label>
+                    <div class="value">${formatCurrency(totalFutureProfit)}</div>
+                </div>
+                <div class="result-item">
+                    <label>Total Profit Owed</label>
+                    <div class="value">${formatCurrency(totalProfitOwed)}</div>
+                </div>
+                <div class="result-item">
+                    <label>Total Obligations</label>
+                    <div class="value highlight">${formatCurrency(totalObligations)}</div>
+                </div>
+            `;
+
+            // Update obligations section
+            document.getElementById('future-profit-display').textContent = '~' + formatCurrency(totalFutureProfit);
+            document.getElementById('total-remaining').innerHTML = `<strong>~${formatCurrency(totalObligations)}</strong>`;
+            document.getElementById('total-obligations').innerHTML = `<strong>~${formatCurrency(totalObligations + 889305)}</strong>`;
+        }
+
+        // Initialize with standard scenario
+        calculateProjection(scenarios.standard);
+    </script>
+</body>
+</html>
